@@ -1,19 +1,20 @@
 package models
 
 type ManagerModel struct {
-	username string
-	password string
-	telepon  string
-	alamat   string
-	roles    string
+	ID       uint   `json:"id" gorm:"primaryKey"`
+	Username string `json:"username"`
+	Password string `json:"password"`
+	Telepon  string `json:"telp"`
+	Alamat   string `json:"alamat"`
+	Roles    string `json:"roles" gorm:"default:manager"`
 }
 
 func NewManagerAccount(newusername, newpassword, newtelepon, newalamat string) ManagerModel {
 	return ManagerModel{
-		username: newusername,
-		password: newpassword,
-		telepon:  newtelepon,
-		alamat:   newalamat,
-		roles:    "Manager_Toko",
+		Username: newusername,
+		Password: newpassword,
+		Telepon:  newtelepon,
+		Alamat:   newalamat,
+		Roles:    "Manager_Toko",
 	}
 }
