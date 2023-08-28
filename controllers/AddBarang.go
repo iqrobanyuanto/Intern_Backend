@@ -7,6 +7,14 @@ import (
 	"net/http"
 )
 
+// Add godoc
+// @Summary Add Barang to database.
+// @Description Insert the given barang from API to the database.
+// @Tags Add_BarangFunction
+// @Param Body body BarangModel true "the body to add barang to database"
+// @Produce json
+// @Success 200 {object} models.BarangModel
+// @Router /product/add [post]
 func Add(c *gin.Context) {
 	var barang models.BarangModel
 	if err := c.ShouldBindJSON(&barang); err != nil {

@@ -7,6 +7,15 @@ import (
 	"net/http"
 )
 
+// UpdateBarang godoc
+// @Summary Update Barang to database.
+// @Description Update the given barang from API to the database by their id.
+// @Tags Update_BarangFunction
+// @Param id path string true "BarangModel id as a path to update related BarangModel data"
+// @Param Body body BarangModel true "the body to update barang to database"
+// @Produce json
+// @Success 200 {object} models.BarangModel
+// @Router /product/update/{id} [put]
 func UpdateBarang(c *gin.Context) {
 	id := c.Param("id")
 	var barang models.BarangModel
