@@ -8,6 +8,14 @@ import (
 	"strconv"
 )
 
+// Delete godoc
+// @Summary delete barang from database.
+// @Description delete barang from database by their id.
+// @Tags Delete_BarangFunction
+// @Param id path string true "BarangModel id as a key to delete BarangModel data"
+// @Produce json
+// @Success 200 {object} models.BarangModel
+// @Router /product/delete [delete]
 func Delete(c *gin.Context) {
 	var barang models.BarangModel
 	db := config.ConnectDataBase()
