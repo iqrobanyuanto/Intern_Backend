@@ -3,9 +3,10 @@ package controllers
 import (
 	"Intern_Backend/config"
 	"Intern_Backend/models"
-	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
+
+	"github.com/gin-gonic/gin"
 )
 
 // Delete godoc
@@ -13,9 +14,11 @@ import (
 // @Description delete barang from database by their id.
 // @Tags Delete_BarangFunction
 // @Param id path string true "BarangModel id as a key to delete BarangModel data"
+// @Param Authorization header string true "Authorization. How to input in swagger : 'Bearer <insert_your_token_here>'"
+// @Security BearerToken
 // @Produce json
 // @Success 200 {object} models.BarangModel
-// @Router /product/delete [delete]
+// @Router /update-product [delete]
 func Delete(c *gin.Context) {
 	var barang models.BarangModel
 	db := config.ConnectDataBase()
