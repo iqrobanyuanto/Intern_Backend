@@ -3,18 +3,21 @@ package controllers
 import (
 	"Intern_Backend/config"
 	"Intern_Backend/models"
-	"github.com/gin-gonic/gin"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 // Add godoc
 // @Summary Add Barang to database.
 // @Description Insert the given barang from API to the database.
 // @Tags Add_BarangFunction
-// @Param Body body BarangModel true "the body to add barang to database"
+// @Param Body body models.BarangModel false "the body to add barang to database"
+// @Param Authorization header string true "Authorization. How to input in swagger : 'Bearer <insert_your_token_here>'"
+// @Security BearerToken
 // @Produce json
 // @Success 200 {object} models.BarangModel
-// @Router /product/add [post]
+// @Router /update-product [post]
 func Add(c *gin.Context) {
 	var barang models.BarangModel
 	if err := c.ShouldBindJSON(&barang); err != nil {

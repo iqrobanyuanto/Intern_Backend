@@ -1,0 +1,394 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/get-product/filter": {
+            "get": {
+                "security": [
+                    {
+                        "BearerToken": []
+                    }
+                ],
+                "description": "get every barang from database that related to their input parameter(category).",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Search_BarangFunction"
+                ],
+                "summary": "Get barang from database by their category.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "BarangModel kategori as a key to get the BarangModel data",
+                        "name": "kategori",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Authorization. How to input in swagger : 'Bearer \u003cinsert_your_token_here\u003e'",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.BarangModel"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/get-product/search": {
+            "get": {
+                "security": [
+                    {
+                        "BearerToken": []
+                    }
+                ],
+                "description": "get every barang from database that related to their input parameter(nama barang).",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Search_BarangFunction"
+                ],
+                "summary": "Get barang from database by their name.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "BarangModel nama as a key to get the BarangModel data",
+                        "name": "nama",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Authorization. How to input in swagger : 'Bearer \u003cinsert_your_token_here\u003e'",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.BarangModel"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/login-admin": {
+            "post": {
+                "description": "Logging in to get jwt token to access admin or user api by roles.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login as as admin.",
+                "parameters": [
+                    {
+                        "description": "the body to login a admin",
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controllers.KodeInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/login-manager": {
+            "post": {
+                "description": "Logging in to get jwt token to access manager api by roles.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login as as user.",
+                "parameters": [
+                    {
+                        "description": "the body to login a manager",
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controllers.LoginInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/register": {
+            "post": {
+                "description": "registering a user from public access.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Register a user.",
+                "parameters": [
+                    {
+                        "description": "the body to register a manager",
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controllers.RegisterInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/update-product": {
+            "post": {
+                "security": [
+                    {
+                        "BearerToken": []
+                    }
+                ],
+                "description": "Insert the given barang from API to the database.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Add_BarangFunction"
+                ],
+                "summary": "Add Barang to database.",
+                "parameters": [
+                    {
+                        "description": "the body to add barang to database",
+                        "name": "Body",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/models.BarangModel"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "Authorization. How to input in swagger : 'Bearer \u003cinsert_your_token_here\u003e'",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.BarangModel"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "BearerToken": []
+                    }
+                ],
+                "description": "delete barang from database by their id.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Delete_BarangFunction"
+                ],
+                "summary": "delete barang from database.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "BarangModel id as a key to delete BarangModel data",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Authorization. How to input in swagger : 'Bearer \u003cinsert_your_token_here\u003e'",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.BarangModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/update-product/{id}": {
+            "put": {
+                "security": [
+                    {
+                        "BearerToken": []
+                    }
+                ],
+                "description": "Update the given barang from API to the database by their id.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Update_BarangFunction"
+                ],
+                "summary": "Update Barang to database.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "BarangModel id as a path to update related BarangModel data",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "the body to update barang to database",
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.BarangModel"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "Authorization. How to input in swagger : 'Bearer \u003cinsert_your_token_here\u003e'",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.BarangModel"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "controllers.KodeInput": {
+            "type": "object",
+            "required": [
+                "kode"
+            ],
+            "properties": {
+                "kode": {
+                    "type": "string"
+                }
+            }
+        },
+        "controllers.LoginInput": {
+            "type": "object",
+            "required": [
+                "password",
+                "username"
+            ],
+            "properties": {
+                "password": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "controllers.RegisterInput": {
+            "type": "object",
+            "required": [
+                "alamat",
+                "password",
+                "telp",
+                "username"
+            ],
+            "properties": {
+                "alamat": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "telp": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.BarangModel": {
+            "type": "object",
+            "properties": {
+                "harga": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "jumlah": {
+                    "type": "integer"
+                },
+                "kategori": {
+                    "type": "string"
+                },
+                "nama": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
