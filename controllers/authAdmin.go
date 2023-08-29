@@ -10,7 +10,7 @@ import (
 )
 
 type KodeInput struct {
-	KodePegawai string `json:"kode" binding:"required"`
+	Kode string `json:"kode" binding:"required"`
 }
 
 // LoginAdmin godoc
@@ -31,9 +31,9 @@ func LoginAdmin(c *gin.Context) {
 	}
 
 	u := models.AdminModel{}
-	u.KodePegawai = input.KodePegawai
+	u.KodePegawai = input.Kode
 
-	token, err := models.LoginCheckAdmin(u.KodePegawai, db)
+	token, err := u.LoginCheckAdmin(db)
 
 	if err != nil {
 		fmt.Println(err)
@@ -42,7 +42,7 @@ func LoginAdmin(c *gin.Context) {
 	}
 
 	admin := map[string]string{
-		"username": u.KodePegawai,
+		"kode": u.KodePegawai,
 	}
 
 	c.JSON(http.StatusOK, gin.H{"message": "login success", "user": admin, "token": token})
