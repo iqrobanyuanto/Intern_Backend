@@ -12,7 +12,7 @@ import (
 // @Summary Get barang from database by their name.
 // @Description get every barang from database that related to their input parameter(nama barang).
 // @Tags Search_BarangFunction
-// @Param nama path string true "BarangModel nama as a key to get the BarangModel data"
+// @Param nama query string false "BarangModel nama as a key to get the BarangModel data"
 // @Param Authorization header string true "Authorization. How to input in swagger : 'Bearer <insert_your_token_here>'"
 // @Security BearerToken
 // @Produce json
@@ -33,7 +33,7 @@ func SearchBarang(c *gin.Context) {
 // @Summary Get barang from database by their category.
 // @Description get every barang from database that related to their input parameter(category).
 // @Tags Search_BarangFunction
-// @Param kategori path string true "BarangModel kategori as a key to get the BarangModel data"
+// @Param kategori query string false "BarangModel kategori as a key to get the BarangModel data"
 // @Param Authorization header string true "Authorization. How to input in swagger : 'Bearer <insert_your_token_here>'"
 // @Security BearerToken
 // @Produce json

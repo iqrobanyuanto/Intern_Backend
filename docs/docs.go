@@ -36,8 +36,7 @@ const docTemplate = `{
                         "type": "string",
                         "description": "BarangModel kategori as a key to get the BarangModel data",
                         "name": "kategori",
-                        "in": "path",
-                        "required": true
+                        "in": "query"
                     },
                     {
                         "type": "string",
@@ -80,8 +79,7 @@ const docTemplate = `{
                         "type": "string",
                         "description": "BarangModel nama as a key to get the BarangModel data",
                         "name": "nama",
-                        "in": "path",
-                        "required": true
+                        "in": "query"
                     },
                     {
                         "type": "string",
@@ -201,6 +199,54 @@ const docTemplate = `{
             }
         },
         "/update-product": {
+            "put": {
+                "security": [
+                    {
+                        "BearerToken": []
+                    }
+                ],
+                "description": "Update the given barang from API to the database by their id.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Update_BarangFunction"
+                ],
+                "summary": "Update Barang to database.",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "BarangModel id as a path to update related BarangModel data",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "description": "the body to update barang to database",
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.BarangModel"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "Authorization. How to input in swagger : 'Bearer \u003cinsert_your_token_here\u003e'",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.BarangModel"
+                        }
+                    }
+                }
+            },
             "post": {
                 "security": [
                     {
@@ -257,61 +303,11 @@ const docTemplate = `{
                 "summary": "delete barang from database.",
                 "parameters": [
                     {
-                        "type": "string",
+                        "type": "integer",
                         "description": "BarangModel id as a key to delete BarangModel data",
                         "name": "id",
-                        "in": "path",
+                        "in": "query",
                         "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Authorization. How to input in swagger : 'Bearer \u003cinsert_your_token_here\u003e'",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/models.BarangModel"
-                        }
-                    }
-                }
-            }
-        },
-        "/update-product/{id}": {
-            "put": {
-                "security": [
-                    {
-                        "BearerToken": []
-                    }
-                ],
-                "description": "Update the given barang from API to the database by their id.",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Update_BarangFunction"
-                ],
-                "summary": "Update Barang to database.",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "BarangModel id as a path to update related BarangModel data",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "description": "the body to update barang to database",
-                        "name": "Body",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/models.BarangModel"
-                        }
                     },
                     {
                         "type": "string",

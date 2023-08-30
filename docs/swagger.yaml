@@ -53,9 +53,8 @@ paths:
       description: get every barang from database that related to their input parameter(category).
       parameters:
       - description: BarangModel kategori as a key to get the BarangModel data
-        in: path
+        in: query
         name: kategori
-        required: true
         type: string
       - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
         in: header
@@ -82,9 +81,8 @@ paths:
         barang).
       parameters:
       - description: BarangModel nama as a key to get the BarangModel data
-        in: path
+        in: query
         name: nama
-        required: true
         type: string
       - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
         in: header
@@ -173,10 +171,10 @@ paths:
       description: delete barang from database by their id.
       parameters:
       - description: BarangModel id as a key to delete BarangModel data
-        in: path
+        in: query
         name: id
         required: true
-        type: string
+        type: integer
       - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
         in: header
         name: Authorization
@@ -219,15 +217,14 @@ paths:
       summary: Add Barang to database.
       tags:
       - Add_BarangFunction
-  /update-product/{id}:
     put:
       description: Update the given barang from API to the database by their id.
       parameters:
       - description: BarangModel id as a path to update related BarangModel data
-        in: path
+        in: query
         name: id
         required: true
-        type: string
+        type: integer
       - description: the body to update barang to database
         in: body
         name: Body

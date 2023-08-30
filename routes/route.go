@@ -31,7 +31,7 @@ func SetupRouter(db *gorm.DB) *gin.Engine {
 	adminMiddlewareRoute.Use(middlewares.AdminCheckMiddleware())
 	adminMiddlewareRoute.POST("/", controllers.Add)
 	adminMiddlewareRoute.DELETE("/", controllers.Delete)
-	adminMiddlewareRoute.PUT("/:id", controllers.UpdateBarang)
+	adminMiddlewareRoute.PUT("/", controllers.UpdateBarang)
 
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	return r
