@@ -17,7 +17,7 @@ import (
 // @Security BearerToken
 // @Produce json
 // @Success 200 {object} models.BarangModel
-// @Router /update-product [post]
+// @Router /update-product/add [post]
 func Add(c *gin.Context) {
 	var barang models.BarangModel
 	if err := c.ShouldBindJSON(&barang); err != nil {

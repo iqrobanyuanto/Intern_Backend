@@ -48,6 +48,32 @@ definitions:
 info:
   contact: {}
 paths:
+  /get-product:
+    get:
+      description: get every barang from database using barang id.
+      parameters:
+      - description: BarangModel id as a key to get the BarangModel data
+        in: query
+        name: id
+        required: true
+        type: integer
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.BarangModel'
+      security:
+      - BearerToken: []
+      summary: Get barang from database by their id.
+      tags:
+      - GetById_BarangFunction
   /get-product/filter:
     get:
       description: get every barang from database that related to their input parameter(category).
@@ -166,32 +192,7 @@ paths:
       summary: Register a user.
       tags:
       - Auth
-  /update-product:
-    delete:
-      description: delete barang from database by their id.
-      parameters:
-      - description: BarangModel id as a key to delete BarangModel data
-        in: query
-        name: id
-        required: true
-        type: integer
-      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.BarangModel'
-      security:
-      - BearerToken: []
-      summary: delete barang from database.
-      tags:
-      - Delete_BarangFunction
+  /update-product/add:
     post:
       description: Insert the given barang from API to the database.
       parameters:
@@ -217,6 +218,33 @@ paths:
       summary: Add Barang to database.
       tags:
       - Add_BarangFunction
+  /update-product/delete:
+    delete:
+      description: delete barang from database by their id.
+      parameters:
+      - description: BarangModel id as a key to delete BarangModel data
+        in: query
+        name: id
+        required: true
+        type: integer
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.BarangModel'
+      security:
+      - BearerToken: []
+      summary: delete barang from database.
+      tags:
+      - Delete_BarangFunction
+  /update-product/update:
     put:
       description: Update the given barang from API to the database by their id.
       parameters:

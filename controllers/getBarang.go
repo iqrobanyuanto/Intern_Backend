@@ -12,15 +12,23 @@ import (
 // @Summary Get barang from database by their id.
 // @Description get every barang from database using barang id.
 // @Tags GetById_BarangFunction
-// @Param id path string true "BarangModel id as a key to get the BarangModel data"
+// @Param id query int true "BarangModel id as a key to get the BarangModel data"
+// @Param Authorization header string true "Authorization. How to input in swagger : 'Bearer <insert_your_token_here>'"
+// @Security BearerToken
 // @Produce json
 // @Success 200 {object} models.BarangModel
 // @Router /get-product [get]
 func GetByIdBarang(c *gin.Context) {
-	id := c.Param("id")
+	id := c.Query("id")
 	db := config.ConnectDataBase()
 	var barang models.BarangModel
-	if err := db.Where("id=?", id).Find(&barang).Error; err != nil {
+
+	if id == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"message": "id cannot be empty"})
+		return
+	}
+
+	if err := db.Where("id = ?", id).Find(&barang).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
 		return
 	}

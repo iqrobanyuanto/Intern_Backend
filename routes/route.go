@@ -24,14 +24,15 @@ func SetupRouter(db *gorm.DB) *gin.Engine {
 
 	managerMiddlewareRoute := r.Group("/get-product")
 	managerMiddlewareRoute.Use(middlewares.ManagerCheckMiddleware())
+	managerMiddlewareRoute.GET("/", controllers.GetByIdBarang)
 	managerMiddlewareRoute.GET("/search", controllers.SearchBarang)
 	managerMiddlewareRoute.GET("/filter", controllers.FilterBarang)
 
 	adminMiddlewareRoute := r.Group("/update-product")
 	adminMiddlewareRoute.Use(middlewares.AdminCheckMiddleware())
-	adminMiddlewareRoute.POST("/", controllers.Add)
-	adminMiddlewareRoute.DELETE("/", controllers.Delete)
-	adminMiddlewareRoute.PUT("/", controllers.UpdateBarang)
+	adminMiddlewareRoute.POST("/add", controllers.Add)
+	adminMiddlewareRoute.DELETE("/delete", controllers.Delete)
+	adminMiddlewareRoute.PUT("/update", controllers.UpdateBarang)
 
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	return r

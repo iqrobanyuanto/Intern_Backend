@@ -16,6 +16,47 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/get-product": {
+            "get": {
+                "security": [
+                    {
+                        "BearerToken": []
+                    }
+                ],
+                "description": "get every barang from database using barang id.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "GetById_BarangFunction"
+                ],
+                "summary": "Get barang from database by their id.",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "BarangModel id as a key to get the BarangModel data",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Authorization. How to input in swagger : 'Bearer \u003cinsert_your_token_here\u003e'",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.BarangModel"
+                        }
+                    }
+                }
+            }
+        },
         "/get-product/filter": {
             "get": {
                 "security": [
@@ -198,55 +239,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/update-product": {
-            "put": {
-                "security": [
-                    {
-                        "BearerToken": []
-                    }
-                ],
-                "description": "Update the given barang from API to the database by their id.",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Update_BarangFunction"
-                ],
-                "summary": "Update Barang to database.",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "BarangModel id as a path to update related BarangModel data",
-                        "name": "id",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "description": "the body to update barang to database",
-                        "name": "Body",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/models.BarangModel"
-                        }
-                    },
-                    {
-                        "type": "string",
-                        "description": "Authorization. How to input in swagger : 'Bearer \u003cinsert_your_token_here\u003e'",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/models.BarangModel"
-                        }
-                    }
-                }
-            },
+        "/update-product/add": {
             "post": {
                 "security": [
                     {
@@ -286,7 +279,9 @@ const docTemplate = `{
                         }
                     }
                 }
-            },
+            }
+        },
+        "/update-product/delete": {
             "delete": {
                 "security": [
                     {
@@ -308,6 +303,56 @@ const docTemplate = `{
                         "name": "id",
                         "in": "query",
                         "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Authorization. How to input in swagger : 'Bearer \u003cinsert_your_token_here\u003e'",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.BarangModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/update-product/update": {
+            "put": {
+                "security": [
+                    {
+                        "BearerToken": []
+                    }
+                ],
+                "description": "Update the given barang from API to the database by their id.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Update_BarangFunction"
+                ],
+                "summary": "Update Barang to database.",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "BarangModel id as a path to update related BarangModel data",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "description": "the body to update barang to database",
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.BarangModel"
+                        }
                     },
                     {
                         "type": "string",

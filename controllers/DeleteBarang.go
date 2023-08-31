@@ -17,7 +17,7 @@ import (
 // @Security BearerToken
 // @Produce json
 // @Success 200 {object} models.BarangModel
-// @Router /update-product [delete]
+// @Router /update-product/delete [delete]
 func Delete(c *gin.Context) {
 	id := c.Query("id")
 	var barang models.BarangModel

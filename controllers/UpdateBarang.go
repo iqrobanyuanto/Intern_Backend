@@ -18,7 +18,7 @@ import (
 // @Security BearerToken
 // @Produce json
 // @Success 200 {object} models.BarangModel
-// @Router /update-product [put]
+// @Router /update-product/update [put]
 func UpdateBarang(c *gin.Context) {
 	id := c.Query("id")
 	var barang models.BarangModel
