@@ -14,7 +14,7 @@ import (
 // @Param id path string true "BarangModel id as a key to delete BarangModel data"
 // @Produce json
 // @Success 200 {object} models.BarangModel
-// @Router /product/delete [delete]
+// @Router /product/delete/{id} [delete]
 func Delete(c *gin.Context) {
 	var barang models.BarangModel
 	db := config.ConnectDataBase()
