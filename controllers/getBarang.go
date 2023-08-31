@@ -15,7 +15,7 @@ import (
 // @Param id path string true "BarangModel id as a key to get the BarangModel data"
 // @Produce json
 // @Success 200 {object} models.BarangModel
-// @Router /product/get/{id} [get]
+// @Router /get-product [get]
 func GetByIdBarang(c *gin.Context) {
 	id := c.Param("id")
 	db := config.ConnectDataBase()
