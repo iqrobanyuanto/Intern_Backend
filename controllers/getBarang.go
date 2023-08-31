@@ -3,8 +3,9 @@ package controllers
 import (
 	"Intern_Backend/config"
 	"Intern_Backend/models"
-	"github.com/gin-gonic/gin"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 // GetByIdBarang godoc
@@ -31,9 +32,11 @@ func GetByIdBarang(c *gin.Context) {
 // @Description get every barang from database that related to their input parameter(nama barang).
 // @Tags Search_BarangFunction
 // @Param nama path string true "BarangModel nama as a key to get the BarangModel data"
+// @Param Authorization header string true "Authorization. How to input in swagger : 'Bearer <insert_your_token_here>'"
+// @Security BearerToken
 // @Produce json
 // @Success 200 {object} []models.BarangModel
-// @Router /product/get/search?nama={nama} [get]
+// @Router /get-product/search [get]
 func SearchBarang(c *gin.Context) {
 	nama := c.Query("nama")
 	db := config.ConnectDataBase()
@@ -50,9 +53,11 @@ func SearchBarang(c *gin.Context) {
 // @Description get every barang from database that related to their input parameter(category).
 // @Tags Search_BarangFunction
 // @Param kategori path string true "BarangModel kategori as a key to get the BarangModel data"
+// @Param Authorization header string true "Authorization. How to input in swagger : 'Bearer <insert_your_token_here>'"
+// @Security BearerToken
 // @Produce json
 // @Success 200 {object} []models.BarangModel
-// @Router /product/get/filter?kategori={kategori} [get]
+// @Router /get-product/filter [get]
 func FilterBarang(c *gin.Context) {
 	filters := c.QueryArray("kategori")
 	db := config.ConnectDataBase()
