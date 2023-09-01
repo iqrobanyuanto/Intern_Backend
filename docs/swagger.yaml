@@ -1,0 +1,279 @@
+definitions:
+  controllers.KodeInput:
+    properties:
+      kode:
+        type: string
+    required:
+    - kode
+    type: object
+  controllers.LoginInput:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    required:
+    - password
+    - username
+    type: object
+  controllers.RegisterInput:
+    properties:
+      alamat:
+        type: string
+      password:
+        type: string
+      telp:
+        type: string
+      username:
+        type: string
+    required:
+    - alamat
+    - password
+    - telp
+    - username
+    type: object
+  models.BarangModel:
+    properties:
+      harga:
+        type: integer
+      id:
+        type: integer
+      jumlah:
+        type: integer
+      kategori:
+        type: string
+      nama:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /get-product:
+    get:
+      description: get every barang from database using barang id.
+      parameters:
+      - description: BarangModel id as a key to get the BarangModel data
+        in: query
+        name: id
+        required: true
+        type: integer
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.BarangModel'
+      security:
+      - BearerToken: []
+      summary: Get barang from database by their id.
+      tags:
+      - GetById_BarangFunction
+  /get-product/filter:
+    get:
+      description: get every barang from database that related to their input parameter(category).
+      parameters:
+      - description: BarangModel kategori as a key to get the BarangModel data
+        in: query
+        name: kategori
+        type: string
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.BarangModel'
+            type: array
+      security:
+      - BearerToken: []
+      summary: Get barang from database by their category.
+      tags:
+      - Search_BarangFunction
+  /get-product/search:
+    get:
+      description: get every barang from database that related to their input parameter(nama
+        barang).
+      parameters:
+      - description: BarangModel nama as a key to get the BarangModel data
+        in: query
+        name: nama
+        type: string
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.BarangModel'
+            type: array
+      security:
+      - BearerToken: []
+      summary: Get barang from database by their name.
+      tags:
+      - Search_BarangFunction
+  /login-admin:
+    post:
+      description: Logging in to get jwt token to access admin or user api by roles.
+      parameters:
+      - description: the body to login a admin
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.KodeInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Login as as admin.
+      tags:
+      - Auth
+  /login-manager:
+    post:
+      description: Logging in to get jwt token to access manager api by roles.
+      parameters:
+      - description: the body to login a manager
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.LoginInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Login as as user.
+      tags:
+      - Auth
+  /register:
+    post:
+      description: registering a user from public access.
+      parameters:
+      - description: the body to register a manager
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.RegisterInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Register a user.
+      tags:
+      - Auth
+  /update-product/add:
+    post:
+      description: Insert the given barang from API to the database.
+      parameters:
+      - description: the body to add barang to database
+        in: body
+        name: Body
+        schema:
+          $ref: '#/definitions/models.BarangModel'
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.BarangModel'
+      security:
+      - BearerToken: []
+      summary: Add Barang to database.
+      tags:
+      - Add_BarangFunction
+  /update-product/delete:
+    delete:
+      description: delete barang from database by their id.
+      parameters:
+      - description: BarangModel id as a key to delete BarangModel data
+        in: query
+        name: id
+        required: true
+        type: integer
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.BarangModel'
+      security:
+      - BearerToken: []
+      summary: delete barang from database.
+      tags:
+      - Delete_BarangFunction
+  /update-product/update:
+    put:
+      description: Update the given barang from API to the database by their id.
+      parameters:
+      - description: BarangModel id as a path to update related BarangModel data
+        in: query
+        name: id
+        required: true
+        type: integer
+      - description: the body to update barang to database
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/models.BarangModel'
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.BarangModel'
+      security:
+      - BearerToken: []
+      summary: Update Barang to database.
+      tags:
+      - Update_BarangFunction
+swagger: "2.0"
