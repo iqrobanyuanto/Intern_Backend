@@ -18,6 +18,10 @@ func SetupRouter(db *gorm.DB) *gin.Engine {
 	r.Use(func(c *gin.Context) {
 		c.Set("db", db)
 	})
+
+	// Use the CorsMiddleware here
+	r.Use(middlewares.CorsMiddleware())
+
 	r.POST("/register", controllers.Register)
 	r.POST("/login-admin", controllers.LoginAdmin)
 	r.POST("/login-manager", controllers.Login)
