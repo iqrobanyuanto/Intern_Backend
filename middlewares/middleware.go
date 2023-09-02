@@ -3,9 +3,22 @@ package middlewares
 import (
 	"Intern_Backend/utils/token"
 	"net/http"
+	"time"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
+
+func CorsMiddleware() gin.HandlerFunc {
+	return cors.New(cors.Config{
+		AllowOrigins:     []string{"*"}, // Add your frontend URL
+		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,
+		MaxAge:           12 * time.Hour,
+	})
+}
 
 func ManagerCheckMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
