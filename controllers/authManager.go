@@ -38,11 +38,6 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	if models.IsUsernameTaken(db, input.Username) {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Username is already taken"})
-		return
-	}
-
 	u := models.ManagerModel{}
 
 	u.Username = input.Username
