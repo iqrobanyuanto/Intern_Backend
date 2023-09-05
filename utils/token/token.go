@@ -13,6 +13,25 @@ import (
 
 var API_SECRET = utils.Getenv("API_SECRET", "rahasiasekali")
 
+func GenerateTokenManager(user_id uint, role, username, telepon string) (string, error) {
+	token_lifespan, err := strconv.Atoi(utils.Getenv("TOKEN_HOUR_LIFESPAN", "24"))
+
+	if err != nil {
+		return "", err
+	}
+
+	claims := jwt.MapClaims{}
+	claims["authorized"] = true
+	claims["user_id"] = user_id
+	claims["role"] = role
+	claims["username"] = username // Include the username claim
+	claims["telepon"] = telepon   // Include the telepon claim
+	claims["exp"] = time.Now().Add(time.Hour * time.Duration(token_lifespan)).Unix()
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+
+	return token.SignedString([]byte(API_SECRET))
+}
+
 func GenerateToken(user_id uint, role string) (string, error) {
 	token_lifespan, err := strconv.Atoi(utils.Getenv("TOKEN_HOUR_LIFESPAN", "24"))
 
