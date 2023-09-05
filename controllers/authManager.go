@@ -51,7 +51,7 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	err = db.Model(models.ManagerModel{}).Select("role").Where("username = ?", u.Username).Take(&u).Error
+	err = db.Model(models.ManagerModel{}).Select("role", "telepon").Where("username = ?", u.Username).Take(&u).Error
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to fetch user role"})
 		return
@@ -61,6 +61,7 @@ func Login(c *gin.Context) {
 
 	user := map[string]string{
 		"username": u.Username,
+		"telepon":  u.Telepon,
 	}
 
 	c.JSON(http.StatusOK, gin.H{"message": "login success", "user": user, "token": token})

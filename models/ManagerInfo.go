@@ -51,7 +51,7 @@ func LoginCheckManager(username string, password string, db *gorm.DB) (string, e
 		return "", err
 	}
 
-	token, err := token.GenerateToken(u.ID, u.Role)
+	token, err := token.GenerateTokenManager(u.ID, u.Role, u.Username, u.Telepon)
 	if err != nil {
 		return "", err
 	}
