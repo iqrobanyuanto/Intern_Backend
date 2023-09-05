@@ -1,11 +1,11 @@
 package controllers
 
 import (
-	"Intern_Backend/config"
 	"Intern_Backend/models"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
 )
 
 // Add godoc
@@ -24,7 +24,18 @@ func Add(c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": err.Error()})
 		return
 	}
-	db := config.ConnectDataBase()
+
+	// Check if the product with the same name (case-insensitive) exists in the database
+	db := c.MustGet("db").(*gorm.DB)
+	var existingProduk models.BarangModel
+	if err := db.Where("nama_barang like ?", barang.NamaBarang+"%").First(&existingProduk).Error; err == nil {
+		// Product with the same name exists, update the "jumlah"
+		existingProduk.JumlahBarang += barang.JumlahBarang
+		db.Save(&existingProduk)
+		c.JSON(http.StatusOK, gin.H{"message": "Jumlah updated successfully", "data": existingProduk})
+		return
+	}
+
 	db.Create(&barang)
 	c.JSON(http.StatusOK, gin.H{"BarangModel": barang})
 }
