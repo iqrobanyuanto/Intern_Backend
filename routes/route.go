@@ -7,19 +7,19 @@ import (
 	"Intern_Backend/controllers"
 	"Intern_Backend/middlewares"
 
-	swaggerFiles "github.com/swaggo/files"     // swagger embed files
-	ginSwagger "github.com/swaggo/gin-swagger" // gin-swagger middleware
+	"net/http"
+
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 func SetupRouter(db *gorm.DB) *gin.Engine {
 	r := gin.Default()
 
-	// set db to gin context
 	r.Use(func(c *gin.Context) {
 		c.Set("db", db)
 	})
 
-	// Use the CorsMiddleware here
 	r.Use(middlewares.CorsMiddleware())
 
 	r.POST("/register", controllers.Register)
@@ -28,16 +28,33 @@ func SetupRouter(db *gorm.DB) *gin.Engine {
 
 	managerMiddlewareRoute := r.Group("/get-product")
 	managerMiddlewareRoute.Use(middlewares.ManagerCheckMiddleware())
+
+	managerMiddlewareRoute.OPTIONS("/", func(c *gin.Context) {
+		c.Header("Access-Control-Allow-Origin", "*")
+		c.Header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
+		c.Header("Access-Control-Allow-Headers", "Origin, Content-Type, Authorization")
+		c.Status(http.StatusOK)
+	})
+
 	managerMiddlewareRoute.GET("/", controllers.GetByIdBarang)
 	managerMiddlewareRoute.GET("/search", controllers.SearchBarang)
 	managerMiddlewareRoute.GET("/filter", controllers.FilterBarang)
 
 	adminMiddlewareRoute := r.Group("/update-product")
 	adminMiddlewareRoute.Use(middlewares.AdminCheckMiddleware())
+
+	adminMiddlewareRoute.OPTIONS("/", func(c *gin.Context) {
+		c.Header("Access-Control-Allow-Origin", "*")
+		c.Header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
+		c.Header("Access-Control-Allow-Headers", "Origin, Content-Type, Authorization")
+		c.Status(http.StatusOK)
+	})
+
 	adminMiddlewareRoute.POST("/add", controllers.Add)
 	adminMiddlewareRoute.DELETE("/delete", controllers.Delete)
 	adminMiddlewareRoute.PUT("/update", controllers.UpdateBarang)
 
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+
 	return r
 }
