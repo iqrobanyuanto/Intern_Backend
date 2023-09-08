@@ -25,47 +25,6 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/get-product": {
-            "get": {
-                "security": [
-                    {
-                        "BearerToken": []
-                    }
-                ],
-                "description": "get every barang from database using barang id.",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "GetById_BarangFunction"
-                ],
-                "summary": "Get barang from database by their id.",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "BarangModel id as a key to get the BarangModel data",
-                        "name": "id",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Authorization. How to input in swagger : 'Bearer \u003cinsert_your_token_here\u003e'",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/models.BarangModel"
-                        }
-                    }
-                }
-            }
-        },
         "/get-product/filter": {
             "get": {
                 "security": [
@@ -104,6 +63,47 @@ const docTemplate = `{
                             "items": {
                                 "$ref": "#/definitions/models.BarangModel"
                             }
+                        }
+                    }
+                }
+            }
+        },
+        "/get-product/product": {
+            "get": {
+                "security": [
+                    {
+                        "BearerToken": []
+                    }
+                ],
+                "description": "get every barang from database using barang id.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "GetById_BarangFunction"
+                ],
+                "summary": "Get barang from database by their id.",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "BarangModel id as a key to get the BarangModel data",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Authorization. How to input in swagger : 'Bearer \u003cinsert_your_token_here\u003e'",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.BarangModel"
                         }
                     }
                 }

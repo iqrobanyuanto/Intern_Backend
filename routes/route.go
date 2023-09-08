@@ -36,7 +36,7 @@ func SetupRouter(db *gorm.DB) *gin.Engine {
 		c.Status(http.StatusOK)
 	})
 
-	managerMiddlewareRoute.GET("/", controllers.GetByIdBarang)
+	managerMiddlewareRoute.GET("/product", controllers.GetByIdBarang)
 	managerMiddlewareRoute.GET("/search", controllers.SearchBarang)
 	managerMiddlewareRoute.GET("/filter", controllers.FilterBarang)
 
