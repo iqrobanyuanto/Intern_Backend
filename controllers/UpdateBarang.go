@@ -22,6 +22,7 @@ import (
 func UpdateBarang(c *gin.Context) {
 	id := c.Query("id")
 	var barang models.BarangModel
+
 	if err := c.ShouldBindJSON(&barang); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
 		return

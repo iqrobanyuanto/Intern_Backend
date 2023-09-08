@@ -17,11 +17,11 @@ import (
 // @Security BearerToken
 // @Produce json
 // @Success 200 {object} models.BarangModel
-// @Router /get-product [get]
+// @Router /get-product/product [get]
 func GetByIdBarang(c *gin.Context) {
-	id := c.Query("id")
 	db := config.ConnectDataBase()
 	var barang models.BarangModel
+	id := c.Query("id")
 
 	if id == "" {
 		c.JSON(http.StatusBadRequest, gin.H{"message": "id cannot be empty"})
@@ -32,6 +32,7 @@ func GetByIdBarang(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
 		return
 	}
+
 	c.JSON(http.StatusOK, gin.H{"barangModel": barang})
 }
 
