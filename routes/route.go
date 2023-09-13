@@ -1,6 +1,7 @@
 package routes
 
 import (
+	"github.com/didip/tollbooth/v5"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 
@@ -20,11 +21,12 @@ func SetupRouter(db *gorm.DB) *gin.Engine {
 		c.Set("db", db)
 	})
 
+	rateLimiter := tollbooth.NewLimiter(10, nil)
 	r.Use(middlewares.CorsMiddleware())
 
-	r.POST("/register", controllers.Register)
-	r.POST("/login-admin", controllers.LoginAdmin)
-	r.POST("/login-manager", controllers.Login)
+	r.POST("/register", middlewares.RateLimitMiddleware(rateLimiter), controllers.Register)
+	r.POST("/login-admin", middlewares.RateLimitMiddleware(rateLimiter), controllers.LoginAdmin)
+	r.POST("/login-manager", middlewares.RateLimitMiddleware(rateLimiter), controllers.Login)
 
 	managerMiddlewareRoute := r.Group("/get-product")
 	managerMiddlewareRoute.Use(middlewares.ManagerCheckMiddleware())
@@ -36,9 +38,9 @@ func SetupRouter(db *gorm.DB) *gin.Engine {
 		c.Status(http.StatusOK)
 	})
 
-	managerMiddlewareRoute.GET("/product", controllers.GetByIdBarang)
-	managerMiddlewareRoute.GET("/search", controllers.SearchBarang)
-	managerMiddlewareRoute.GET("/filter", controllers.FilterBarang)
+	managerMiddlewareRoute.GET("/product", middlewares.RateLimitMiddleware(rateLimiter), controllers.GetByIdBarang)
+	managerMiddlewareRoute.GET("/search", middlewares.RateLimitMiddleware(rateLimiter), controllers.SearchBarang)
+	managerMiddlewareRoute.GET("/filter", middlewares.RateLimitMiddleware(rateLimiter), controllers.FilterBarang)
 
 	adminMiddlewareRoute := r.Group("/update-product")
 	adminMiddlewareRoute.Use(middlewares.AdminCheckMiddleware())
@@ -50,9 +52,9 @@ func SetupRouter(db *gorm.DB) *gin.Engine {
 		c.Status(http.StatusOK)
 	})
 
-	adminMiddlewareRoute.POST("/add", controllers.Add)
-	adminMiddlewareRoute.DELETE("/delete", controllers.Delete)
-	adminMiddlewareRoute.PUT("/update", controllers.UpdateBarang)
+	adminMiddlewareRoute.POST("/add", middlewares.RateLimitMiddleware(rateLimiter), controllers.Add)
+	adminMiddlewareRoute.DELETE("/delete", middlewares.RateLimitMiddleware(rateLimiter), controllers.Delete)
+	adminMiddlewareRoute.PUT("/update", middlewares.RateLimitMiddleware(rateLimiter), controllers.UpdateBarang)
 
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 

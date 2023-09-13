@@ -5,6 +5,8 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/didip/tollbooth/v5"
+	"github.com/didip/tollbooth/v5/limiter"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
@@ -18,6 +20,18 @@ func CorsMiddleware() gin.HandlerFunc {
 		AllowCredentials: true,
 		MaxAge:           12 * time.Hour,
 	})
+}
+
+func RateLimitMiddleware(lmt *limiter.Limiter) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		httpError := tollbooth.LimitByRequest(lmt, c.Writer, c.Request)
+		if httpError != nil {
+			c.JSON(httpError.StatusCode, gin.H{"error": httpError.Message})
+			c.Abort()
+			return
+		}
+		c.Next()
+	}
 }
 
 func ManagerCheckMiddleware() gin.HandlerFunc {
