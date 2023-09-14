@@ -24,8 +24,8 @@ func GenerateTokenManager(user_id uint, role, username, telepon string) (string,
 	claims["authorized"] = true
 	claims["user_id"] = user_id
 	claims["role"] = role
-	claims["username"] = username // Include the username claim
-	claims["telepon"] = telepon   // Include the telepon claim
+	claims["username"] = username 
+	claims["telepon"] = telepon   
 	claims["exp"] = time.Now().Add(time.Hour * time.Duration(token_lifespan)).Unix()
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
