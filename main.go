@@ -5,8 +5,9 @@ import (
 	"Intern_Backend/docs"
 	"Intern_Backend/routes"
 	"Intern_Backend/utils"
-	"github.com/joho/godotenv"
 	"log"
+
+	"github.com/joho/godotenv"
 )
 
 // @contact.name API Support
@@ -34,7 +35,7 @@ func main() {
 	docs.SwaggerInfo.Title = "Test API"
 	docs.SwaggerInfo.Description = "Testing API Produk."
 	docs.SwaggerInfo.Version = "1.0"
-	docs.SwaggerInfo.Host = "internbackend-production.up.railway.app"
+	docs.SwaggerInfo.Host = "mysqlserver3030.database.windows.net"
 	docs.SwaggerInfo.Schemes = []string{"http", "https"}
 
 	db := config.ConnectDataBase()
