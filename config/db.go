@@ -4,20 +4,25 @@ import (
 	"Intern_Backend/models"
 	"Intern_Backend/utils"
 	"fmt"
+	"strconv"
 
-	"gorm.io/driver/mysql"
+	"gorm.io/driver/sqlserver"
 	"gorm.io/gorm"
 )
 
 func ConnectDataBase() *gorm.DB {
-	username := utils.Getenv("DATABASE_USERNAME", "root")
-	password := utils.Getenv("DATABASE_PASSWORD", "17ImJuuTmNYE7kbbBInA")
-	host := utils.Getenv("DATABASE_HOST", "containers-us-west-43.railway.app")
-	port := utils.Getenv("DATABASE_PORT", "6037")
-	database := utils.Getenv("DATABASE_NAME", "railway")
+	username := utils.Getenv("DATABASE_USERNAME", "azureuser")
+	password := utils.Getenv("DATABASE_PASSWORD", "^Bronya123")
+	host := utils.Getenv("DATABASE_HOST", "mysqlserver3030.database.windows.net")
+	port, converr := strconv.Atoi(utils.Getenv("DATABASE_PORT", "1433"))
+	database := utils.Getenv("DATABASE_NAME", "industrial")
 
-	dsn := fmt.Sprintf("%v:%v@tcp(%v:%v)/%v?charset=utf8mb4&parseTime=True&loc=Local", username, password, host, port, database)
-	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	if converr != nil {
+		panic(converr.Error())
+	}
+
+	dsn := fmt.Sprintf("server=%s;user id=%s;password=%s;port=%d;database=%s;", host, username, password, port, database)
+	db, err := gorm.Open(sqlserver.Open(dsn), &gorm.Config{})
 
 	if err != nil {
 		panic(err.Error())
