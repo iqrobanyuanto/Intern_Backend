@@ -17,12 +17,12 @@ import (
 func SetupRouter(db *gorm.DB) *gin.Engine {
 	r := gin.Default()
 
+	rateLimiter := tollbooth.NewLimiter(10, nil)
+
+	r.Use(middlewares.CorsMiddleware())
 	r.Use(func(c *gin.Context) {
 		c.Set("db", db)
 	})
-
-	rateLimiter := tollbooth.NewLimiter(10, nil)
-	r.Use(middlewares.CorsMiddleware())
 
 	r.POST("/register", middlewares.RateLimitMiddleware(rateLimiter), controllers.Register)
 	r.POST("/login-admin", middlewares.RateLimitMiddleware(rateLimiter), controllers.LoginAdmin)
