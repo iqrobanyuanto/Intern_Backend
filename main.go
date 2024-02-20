@@ -35,7 +35,7 @@ func main() {
 	docs.SwaggerInfo.Title = "Test API"
 	docs.SwaggerInfo.Description = "Testing API Produk."
 	docs.SwaggerInfo.Version = "1.0"
-	docs.SwaggerInfo.Host = "localhost:8080"
+	docs.SwaggerInfo.Host = "localhost:8000"
 	docs.SwaggerInfo.Schemes = []string{"http", "https"}
 
 	db := config.ConnectDataBase()

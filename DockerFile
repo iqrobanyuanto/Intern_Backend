@@ -1,15 +1,33 @@
 # syntax=docker/dockerfile:1
-
 FROM golang:1.21
 
+# main work directory
 WORKDIR /app
 
-COPY go.mod go.sum ./
+#copy all dir file
+COPY ./.idea ./.idea
+COPY ./config ./config
+COPY ./controllers ./controllers
+COPY ./docs ./docs
+COPY ./middlewares ./middlewares
+COPY ./models ./models
+COPY ./routes ./routes
+COPY ./tmp ./tmp
+COPY ./utils ./utils
+COPY ./.air.toml ./.air.toml
+COPY ./.env ./.env
+COPY ./go.mod ./go.mod
+COPY ./go.sum ./go.sum
+COPY ./main.go ./main.go
 
+#download dependencies
 RUN go mod download
 
-COPY *.go ./
+#build image
+RUN CGO_ENABLED=0 GOOS=linux go build -o /main-app
 
-RUN CGO_ENABLED=0 GOOS=windows go build -o /docker-gs-ping
+#port app
+EXPOSE 8010
 
-CMD ["/docker-gs-ping"]
+#main target file
+CMD ["/main-app"]
