@@ -1,0 +1,12 @@
+{
+    "configurations": [
+        {
+            "type": "go",
+            "name": "debug main.go",
+            "request": "launch",
+            "mode": "auto",
+            "args": [],
+            "program": "d:\\Sekolah\\Rekruitasi Asprak\\TestAsprak\\Intern_Backend\\main.go"
+        }
+    ]
+}

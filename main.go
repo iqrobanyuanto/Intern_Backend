@@ -36,7 +36,7 @@ func main() {
 	docs.SwaggerInfo.Description = "Testing API Produk."
 	docs.SwaggerInfo.Version = "1.0"
 	//could be changed, based on the services domain
-	docs.SwaggerInfo.Host = "industrialapi.azurewebsites.net"
+	docs.SwaggerInfo.Host = "127.0.0.0"
 	docs.SwaggerInfo.Schemes = []string{"http", "https"}
 
 	db := config.ConnectDataBase()
@@ -44,5 +44,5 @@ func main() {
 	defer sqlDB.Close()
 
 	r := routes.SetupRouter(db)
-	r.Run()
+	r.Run(":90")
 }
