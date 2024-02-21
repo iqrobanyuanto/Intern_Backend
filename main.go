@@ -44,5 +44,5 @@ func main() {
 	defer sqlDB.Close()
 
 	r := routes.SetupRouter(db)
-	r.Run(":90")
+	r.Run()
 }
