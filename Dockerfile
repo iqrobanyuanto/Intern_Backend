@@ -26,5 +26,7 @@ RUN go mod download
 #build image
 RUN CGO_ENABLED=0 GOOS=linux go build -o /main-app
 
+EXPOSE 80
+
 #main target file
 CMD ["/main-app"]
