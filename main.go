@@ -36,7 +36,7 @@ func main() {
 	docs.SwaggerInfo.Description = "Testing API Produk."
 	docs.SwaggerInfo.Version = "1.0"
 	//could be changed, based on the services domain
-	docs.SwaggerInfo.Host = "20.43.132.137:80"
+	docs.SwaggerInfo.Host = "industrial-backend.azurewebsites.net"
 	docs.SwaggerInfo.Schemes = []string{"http", "https"}
 
 	db := config.ConnectDataBase()
