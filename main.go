@@ -38,7 +38,7 @@ func main() {
 	//could be changed, based on the services domain
 	docs.SwaggerInfo.Host = "industrial-backend.azurewebsites.net"
 	docs.SwaggerInfo.Schemes = []string{"http", "https"}
-
+	//db config
 	db := config.ConnectDataBase()
 	sqlDB, _ := db.DB()
 	defer sqlDB.Close()
