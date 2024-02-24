@@ -30,7 +30,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_573245dabdce46099a83ff14b13d9545 }}/gapherionzeta/industrial-backend:${{ github.sha }}
+        tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_573245dabdce46099a83ff14b13d9545 }}/gapherionzeta/industrial-backend:latest
         file: ./Dockerfile
 
   deploy:
